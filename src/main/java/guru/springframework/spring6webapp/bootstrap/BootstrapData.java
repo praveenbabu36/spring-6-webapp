@@ -47,14 +47,16 @@ public class BootstrapData implements CommandLineRunner {
         Publisher wileySaved = publisherRepository.save(wiley);
 
 
-        // # 1 : associate book to author
+        // # 1 : associate book to author & other way
         ericSaved.getBooks().add(dddSaved);
+        dddSaved.getAuthors().add(ericSaved);
 
-        // save the book - author association above
+        // save the association above
         authorRepository.save(ericSaved);
 
         // # 2 : associate publisher to book
         dddSaved.setPublisher(wileySaved);
+        wileySaved.getBooks().add(dddSaved);
 
         // save book - publisher associate
         bookRepository.save(dddSaved);
